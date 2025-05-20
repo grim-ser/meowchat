@@ -21,20 +21,18 @@ else if (chatDiv) {
             if (word.length < 4) return 'meow';
             let meow = '';
             for (let i = 0; i < word.length; i++) {
-                if (i === 0) {
-                    meow += 'm';
-                    continue;
-                }
-                if (i === 1) {
-                    meow += 'e';
-                    continue;
-                }
                 const islastletter = i === word.length - 1;
-                if (islastletter) {
-                    meow += 'w';
-                    continue;
+                let char = '';
+                
+                if (i === 0) char += 'm';
+                else if (i === 1) char += 'e';
+                else if (islastletter) char += 'w';
+                else char += 'o';
+
+                if (RegExp(/[A-Z]/).test(word[i])) {
+                    char = char.toUpperCase();
                 }
-                meow += 'o';
+                meow += char;
             }
             return meow;
             // Thank you chat gpt for the following code as reference lol
