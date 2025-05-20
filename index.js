@@ -14,6 +14,39 @@ else if (chatDiv) {
     const tmi = window.tmi;
     let messages = [];
     
+    function meowifyMessage(message) {
+        // Replace each word with a 'meow' string matching the word's length, preserving punctuation and spaces
+        return message.replace(/[a-zA-Z]+/g, (word) => {
+            if (word.length === 0) return word; // Return empty string if no match
+            if (word.length < 4) return 'meow';
+            let meow = '';
+            for (let i = 0; i < word.length; i++) {
+                if (i === 0) {
+                    meow += 'm';
+                    continue;
+                }
+                if (i === 1) {
+                    meow += 'e';
+                    continue;
+                }
+                const islastletter = i === word.length - 1;
+                if (islastletter) {
+                    meow += 'w';
+                    continue;
+                }
+                meow += 'o';
+            }
+            return meow;
+            // Thank you chat gpt for the following code as reference lol
+            // const base = 'meow';
+            // let meow = '';
+            // for (let i = 0; i < word.length; i++) {
+            //     meow += base[Math.min(i, base.length - 1)];
+            // }
+            // return meow;
+        });
+    }
+
     function addMessage(message) {
         messages.push(message);
         if (messages.length > 10) {
@@ -24,7 +57,7 @@ else if (chatDiv) {
         chatDiv.innerHTML = ''; // Clear the chat div
         messages.forEach(msg => {
             const messageElement = document.createElement('div');
-            messageElement.innerHTML = `<strong style="color:${msg.usercolor}">${msg.username}</strong>: ${msg.message}`;
+            messageElement.innerHTML = `<strong style="color:${msg.usercolor}">${msg.username}</strong>: ${meowifyMessage(msg.message)}`;
             chatDiv.appendChild(messageElement);
         });
         chatDiv.scrollTop = chatDiv.scrollHeight; // Scroll to the bottom
