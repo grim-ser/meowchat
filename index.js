@@ -18,7 +18,17 @@ else if (chatDiv) {
         // Replace each word with a 'meow' string matching the word's length, preserving punctuation and spaces
         return message.replace(/[a-zA-Z]+/g, (word) => {
             if (word.length === 0) return word; // Return empty string if no match
-            if (word.length < 4) return 'meow';
+
+            // rare randoms
+            let ran = Math.random();
+            if (word.length === 3 && ran < 0.25) return 'mew';
+            if (word.length === 3 && ran < 0.05) return 'nya';
+            if (word.length <= 4 && ran < 0.15) return 'mewo';
+
+            // default meow
+            if (word.length <= 4) return 'meow';
+
+            // arbitrary length meow :}
             let meow = '';
             for (let i = 0; i < word.length; i++) {
                 const islastletter = i === word.length - 1;
