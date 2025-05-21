@@ -26,7 +26,7 @@ else if (chatDiv) {
             if (word.length <= 4 && ran < 0.15) return 'mewo';
 
             // default meow
-            if (word.length <= 4) return 'meow';
+            if (word.length < 4) return 'meow';
 
             // arbitrary length meow :}
             let meow = '';
